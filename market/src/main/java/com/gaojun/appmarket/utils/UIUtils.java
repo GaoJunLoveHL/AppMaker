@@ -1,6 +1,7 @@
 package com.gaojun.appmarket.utils;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
@@ -63,6 +64,17 @@ public class UIUtils {
     public static int getColor(int id) {
         return getContext().getResources().getColor(id);
     }
+
+    /**
+     * 获取colorstatelist
+     * @param id
+     * @return
+     */
+    public static ColorStateList getColorStateList(int id) {
+        return getContext().getResources().getColorStateList(id);
+    }
+
+
 
     /**
      * 获取dimen像素值
