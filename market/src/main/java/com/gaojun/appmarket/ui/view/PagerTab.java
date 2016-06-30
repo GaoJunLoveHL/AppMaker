@@ -49,7 +49,7 @@ public class PagerTab extends ViewGroup {
 	private int mIndicatorHeight = 4;//指示器的高度
 	private int mIndicatorWidth;//指示器的宽度，是动态的随着tab的宽度变化
 	private int mIndicatorLeft;//指示器的距离左边的距离
-	private int mIndicatorColor = 0xFF0084FF;//指示器颜色
+	private int mIndicatorColor = UIUtils.getColor(R.color.tab_text_color_selected);;//指示器颜色
 	private Paint mIndicatorPaint; //指示器的画笔
 
 	private int mContentWidth;//记录自身内容的宽度
@@ -57,7 +57,7 @@ public class PagerTab extends ViewGroup {
 
 	private int mTabPadding = 24;// tab左右的内边距
 	private int mTabTextSize = 16; //tab文字大小
-	private int mTabBackgroundResId = R.drawable.bg_tab_text;// tab背景资源
+	private int mTabBackgroundResId = R.drawable.bg_tab_text_selector;// tab背景资源
 	private int mTabTextColorResId = R.color.tab_text_color; //tab文字颜色
 	private int mTabCount;//tab的个数
 
