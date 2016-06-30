@@ -1,14 +1,17 @@
 package com.gaojun.appmarket.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.gaojun.appmarket.domain.AppInfo;
 import com.gaojun.appmarket.http.protocol.HomeProtocol;
+import com.gaojun.appmarket.ui.activities.HomeDetailActivity;
 import com.gaojun.appmarket.ui.adapter.MyBaseAdapter;
 import com.gaojun.appmarket.ui.holder.BaseHolder;
 import com.gaojun.appmarket.ui.holder.HomeHeadHolder;
@@ -42,6 +45,15 @@ public class HomeFragment extends BaseFragment {
         if (picurlList != null) {
             headHolder.setData(picurlList);
         }
+        view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(UIUtils.getContext(),
+                        HomeDetailActivity.class);
+                intent.putExtra("packageName",data.get(position - 1).packageName);//去掉头布局
+                startActivity(intent);
+            }
+        });
         return view;
     }
 

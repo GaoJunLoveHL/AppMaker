@@ -1,5 +1,7 @@
 package com.gaojun.appmarket.domain;
 
+import java.util.ArrayList;
+
 /**
  * 首页应用信息封装
  *
@@ -17,4 +19,17 @@ public class AppInfo {
     public long size;
     public float stars;
 
+    public String author;
+    public String date;
+    public String downloadNum;
+    public String version;
+    public ArrayList<SafeInfo> safe;
+    public ArrayList<String> screen;
+
+    public static class SafeInfo{
+        public String safeDes;
+        public String safeDesUrl;
+        public String safeDesColor;
+        public String safeUrl;
+    }
 }
