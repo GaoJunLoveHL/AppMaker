@@ -1,8 +1,12 @@
 package com.gaojun.appmarket.ui.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
@@ -25,6 +29,7 @@ public class HomeDetailActivity extends AppCompatActivity {
 
     private LoadingPage mLoadingPage;
     private AppInfo data;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +48,11 @@ public class HomeDetailActivity extends AppCompatActivity {
         };
         mLoadingPage.loadData();
         setContentView(mLoadingPage);
+
     }
 
     public View onCreateSuccessView() {
-        View view = UIUtils.inflate(R.layout.page_home_detail);
+        View view = View.inflate(this,R.layout.page_home_detail,null);
         FrameLayout flDetailAppInfo = (FrameLayout) view.findViewById(R.id.fl_detail_appinfo);
         DetailAppInfoHolder appInfoHolder = new DetailAppInfoHolder();
         flDetailAppInfo.addView(appInfoHolder.getRootView());
@@ -67,6 +73,19 @@ public class HomeDetailActivity extends AppCompatActivity {
         flDetailDesc.addView(descHoler.getRootView());
         descHoler.setData(data);
 
+        toolbar = (Toolbar)view.findViewById(R.id.tb_detail);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.mipmap.ic_keyboard_arrow_left_white);
+        toolbar.setTitle("应用详情");
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+                finish();
+            }
+        });
+
         return view;
     }
 
@@ -81,4 +100,14 @@ public class HomeDetailActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.detail_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
 }
