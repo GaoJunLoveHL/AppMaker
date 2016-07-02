@@ -76,6 +76,7 @@ public class HomeDetailActivity extends AppCompatActivity {
 
         FrameLayout flDetailDown = (FrameLayout) view.findViewById(R.id.fl_detail_download);
         DetailDownloadHolder downloadHolder = new DetailDownloadHolder();
+        downloadHolder.setData(data);
         flDetailDown.addView(downloadHolder.getRootView());
 
         toolbar = (Toolbar)view.findViewById(R.id.tb_detail);

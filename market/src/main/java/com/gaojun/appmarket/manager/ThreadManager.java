@@ -63,6 +63,13 @@ public class ThreadManager {
             //执行一个runnable对象
             executor.execute(r);
         }
+
+        public void cancel(Runnable r){
+            //从线程队列中移除对象
+            if (r != null){
+                executor.getQueue().remove(r);
+            }
+        }
     }
 
 }

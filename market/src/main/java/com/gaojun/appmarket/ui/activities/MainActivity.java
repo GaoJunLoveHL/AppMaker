@@ -1,10 +1,18 @@
 package com.gaojun.appmarket.ui.activities;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -12,6 +20,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.gaojun.appmarket.R;
 import com.gaojun.appmarket.ui.fragment.BaseFragment;
@@ -40,7 +49,7 @@ public class MainActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
-
+        getPermission();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         toggle.syncState();
@@ -92,6 +101,38 @@ public class MainActivity extends BaseActivity {
 
             }
         });
+    }
+
+    // 获取权限Android 6.0
+    private void getPermission() {
+        if (Build.VERSION.SDK_INT >= 23){
+            int permissionCheck = ContextCompat.checkSelfPermission(UIUtils.getContext(),
+                    Manifest.permission_group.STORAGE);
+            if (permissionCheck != PackageManager.PERMISSION_GRANTED){
+                //未获得权限
+                ActivityCompat.requestPermissions(this,new String[]{
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                },0);
+            }
+        }
+    }
+
+    /**
+     * 获取权限回调
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+            Toast.makeText(UIUtils.getContext(),"获取权限成功",Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(UIUtils.getContext(),"授权失败",Toast.LENGTH_LONG).show();
+//            finish();
+        }
     }
 
     class VPAdapter extends FragmentPagerAdapter {
