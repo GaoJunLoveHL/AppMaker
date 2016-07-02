@@ -18,6 +18,7 @@ import com.gaojun.appmarket.ui.adapter.MyBaseAdapter;
 import com.gaojun.appmarket.ui.holder.BaseHolder;
 import com.gaojun.appmarket.ui.holder.DetailAppInfoHolder;
 import com.gaojun.appmarket.ui.holder.DetailDescHoler;
+import com.gaojun.appmarket.ui.holder.DetailDownloadHolder;
 import com.gaojun.appmarket.ui.holder.DetailPicHolder;
 import com.gaojun.appmarket.ui.holder.DetailSafeHolder;
 import com.gaojun.appmarket.ui.view.LoadingPage;
@@ -72,6 +73,10 @@ public class HomeDetailActivity extends AppCompatActivity {
         DetailDescHoler descHoler = new DetailDescHoler();
         flDetailDesc.addView(descHoler.getRootView());
         descHoler.setData(data);
+
+        FrameLayout flDetailDown = (FrameLayout) view.findViewById(R.id.fl_detail_download);
+        DetailDownloadHolder downloadHolder = new DetailDownloadHolder();
+        flDetailDown.addView(downloadHolder.getRootView());
 
         toolbar = (Toolbar)view.findViewById(R.id.tb_detail);
         setSupportActionBar(toolbar);

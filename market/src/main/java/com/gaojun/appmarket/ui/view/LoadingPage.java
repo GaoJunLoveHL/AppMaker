@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.gaojun.appmarket.R;
+import com.gaojun.appmarket.manager.ThreadManager;
 import com.gaojun.appmarket.utils.UIUtils;
 
 /**
@@ -90,7 +91,25 @@ public abstract class LoadingPage extends FrameLayout {
     public void loadData(){
         if (mCurrentState != STATE_LOAD_LOADING){
             mCurrentState = STATE_LOAD_LOADING;
-            new Thread(){
+//            new Thread(){
+//                @Override
+//                public void run() {
+//                    final ResultState resultState = onLoad();
+//                    UIUtils.runOnUIThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//
+//                            if (resultState != null){
+//                                mCurrentState = resultState.getState();//网络请求后的状态
+//                                //根据状态更新UI
+//                                showRightPage();
+//                            }
+//                        }
+//                    });
+//
+//                }
+//            }.start();
+            ThreadManager.getThreadPool().execute(new Runnable() {
                 @Override
                 public void run() {
                     final ResultState resultState = onLoad();
@@ -105,9 +124,8 @@ public abstract class LoadingPage extends FrameLayout {
                             }
                         }
                     });
-
                 }
-            }.start();
+            });
         }
     }
 
