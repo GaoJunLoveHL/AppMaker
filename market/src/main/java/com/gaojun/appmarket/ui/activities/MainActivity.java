@@ -106,9 +106,12 @@ public class MainActivity extends BaseActivity {
     // 获取权限Android 6.0
     private void getPermission() {
         if (Build.VERSION.SDK_INT >= 23){
-            int permissionCheck = ContextCompat.checkSelfPermission(UIUtils.getContext(),
-                    Manifest.permission_group.STORAGE);
-            if (permissionCheck != PackageManager.PERMISSION_GRANTED){
+            int permissionCheck1 = ContextCompat.checkSelfPermission(UIUtils.getContext(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            int permissionCheck2 = ContextCompat.checkSelfPermission(UIUtils.getContext(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE);
+            if (permissionCheck1 != PackageManager.PERMISSION_GRANTED ||
+                    permissionCheck2 != PackageManager.PERMISSION_GRANTED){
                 //未获得权限
                 ActivityCompat.requestPermissions(this,new String[]{
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -127,7 +130,8 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                grantResults[1] == PackageManager.PERMISSION_GRANTED){
             Toast.makeText(UIUtils.getContext(),"获取权限成功",Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(UIUtils.getContext(),"授权失败",Toast.LENGTH_LONG).show();
